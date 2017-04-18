@@ -1,0 +1,40 @@
+#!/usr/bin/execlineb -P
+# -*- mode: sh -*-
+# vi: set ft=sh:
+# We add / update the environment defined for the container,
+# this allows our other initialization and service scripts
+# use these settings; but does not change the existing
+# environment as seen by linked containers.
+with-contenv
+multisubstitute
+{
+  import -D "mariadb" MYSQL_HOST
+  import -D "3306" MYSQL_HOST_PORT
+  import -D "root" MYSQL_ROOT_USER
+  import -i MYSQL_ROOT_PASSWORD
+  import -D "/opt/fedora" FEDORA_HOME
+  import -D "fedora3" FEDORA_DB_NAME
+  import -D "fedoraAdmin" FEDORA_DB_USER
+  import -i FEDORA_DB_PASSWORD
+  import -D "fedoraAdmin" FEDORA_ADMIN_USER
+  import -i FEDORA_ADMIN_PASSWORD
+  import -i FEDORA_INTERNAL_PASSWORD
+  import -D "no" FEDORA_IMPORT_DATA
+  import -D "no" FEDORA_REBUILD
+}
+foreground {
+  s6-env -i
+  MYSQL_HOST=$MYSQL_HOST
+  MYSQL_HOST_PORT=$MYSQL_HOST_PORT
+  MYSQL_ROOT_USER=$MYSQL_ROOT_USER
+  MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+  FEDORA_DB_NAME=$FEDORA_DB_NAME
+  FEDORA_DB_USER=$FEDORA_DB_USER
+  FEDORA_DB_PASSWORD=$FEDORA_DB_PASSWORD
+  FEDORA_ADMIN_USER=$FEDORA_ADMIN_USER
+  FEDORA_ADMIN_PASSWORD=$FEDORA_ADMIN_PASSWORD
+  FEDORA_INTERNAL_PASSWORD=$FEDORA_INTERNAL_PASSWORD
+  FEDORA_IMPORT_DATA=$FEDORA_IMPORT_DATA
+  FEDORA_REBUILD=$FEDORA_REBUILD
+  s6-dumpenv -- /var/run/s6/container_environment
+}

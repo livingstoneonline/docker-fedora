@@ -1,0 +1,6 @@
+version: "2"
+services:
+  fedora:
+    image: livingstoneonline/fedora
+    build:
+      context: .

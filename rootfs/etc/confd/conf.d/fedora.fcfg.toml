@@ -1,0 +1,7 @@
+[template]
+src = "fedora.fcfg.tmpl"
+dest = "/opt/fedora/server/config/fedora.fcfg"
+uid = 105
+gid = 110
+mode="0644"
+keys = ["/fedora/db/name", "/fedora/db/user", "/fedora/db/password", "/mysql/host", "/mysql/host/port"]
