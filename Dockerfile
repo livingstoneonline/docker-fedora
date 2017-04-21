@@ -12,4 +12,4 @@ RUN apk-install mysql-client && \
 # Fedora is installed by this copy.
 COPY rootfs /
 
-RUN chown -R tomcat:tomcat ${FEDORA_HOME}
+RUN chown -R tomcat:tomcat ${CATALINA_HOME} ${FEDORA_HOME}

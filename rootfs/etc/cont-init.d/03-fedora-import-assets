@@ -11,7 +11,7 @@ multisubstitute
   import -i FEDORA_DB_NAME
   import -i FEDORA_IMPORT_DATA
 }
-# Import Fedora / Solr Data.
+# Import Fedora Data.
 if -t { s6-test ${FEDORA_IMPORT_DATA} = "yes" }
    foreground { echo "Importing Data from /assets" }
    # Unpack Fedora data.
@@ -21,14 +21,6 @@ if -t { s6-test ${FEDORA_IMPORT_DATA} = "yes" }
          cd / pipeline -d { bzip2 -dc /assets/fedora-data.tar.bz2 } /bin/tar xvf -
        } echo "Decompressed fedora-data.tar.bz2."
      } echo "/assets/fedora-data.tar.bz2 is missing."
-   }
-   # Unpack Solr data.
-   foreground {
-     ifelse { s6-test -e "/assets/solr-data.tar.bz2" } {
-       foreground {
-         cd / pipeline -d { bzip2 -dc /assets/solr-data.tar.bz2 } /bin/tar xvf -
-       } echo "Decompressed solr-data.tar.bz2."
-     } echo "/assets/solr-data.tar.bz2 is missing."
    }
    # Unpack database.
    foreground {
